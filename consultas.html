@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SGCO - Consultas</title>
+  <link rel="icon" type="image/png" href="Logo.png">
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      background-color: #484747;
+      color: #fff;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+      display: none;
+      position: absolute;
+      background-color: #000;
+      top: 90px;
+      left: 20px;
+      width: 200px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      animation: slideIn 0.3s ease;
+    }
+    nav ul.active {
+      display: block;
+    }
+    nav ul li {
+      margin-bottom: 10px;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      display: block;
+      padding: 10px;
+      transition: background-color 0.3s;
+      border-radius: 5px;
+    }
+    nav ul li a:hover {
+      background-color: #555;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-family: "Arial Black", sans-serif;
+      font-size: 24px;
+    }
+    .menu-btn {
+      cursor: pointer;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 999;
+      color: #fff;
+      background-color: #333;
+      padding: 10px;
+      border: 2px solid #333;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .menu-btn:hover {
+      background-color: #555;
+    }
+    .menu-icon {
+      width: 20px;
+      height: 3px;
+      background-color: #fff;
+      margin: 4px 0;
+    }
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .header-links {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .header-links a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+      transition: background-color 0.3s;
+      border-radius: 5px;
+    }
+    .header-links a:hover {
+      background-color: #555;
+    }
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .search-box {
+      width: 300px;
+      padding: 10px 30px 10px 10px;
+      border: 2px solid #333;
+      border-radius: 5px;
+      margin-right: 10px;
+      background: url('pesquisa.png') no-repeat;
+      background-size: 20px;
+      background-position: right 10px center;
+    }
+    .search-button {
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .search-button:hover {
+      background-color: #555;
+    }
+    .event {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .event-name {
+      font-weight: bold;
+      color: #333;
+    }
+    .event-to {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .create-event-btn {
+      position: absolute;
+      top: 155px;
+      right: 20px;
+      padding: 12px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .create-event-btn:hover {
+      background-color: #555;
+    }
+    .event-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .event-action-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 5px;
+      margin-left: 5px;
+      transition: transform 0.3s;
+    }
+    .event-action-btn:hover {
+      transform: scale(1.2);
+    }
+    .event-action-btn img {
+      width: 20px;
+      height: 20px;
+    }
+    .formLogin {
+      background-color: #fff;
+      border-radius: 7px;
+      padding: 40px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      text-align: center;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+    .formLogin h1 {
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: #333;
+    }
+    .formLogin input,
+    .formLogin textarea,
+    .formLogin select {
+      width: calc(100% - 24px);
+      padding: 12px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+    .formLogin input,
+    .formLogin textarea,
+    .formLogin select {
+      border-color: #555;
+    }
+    .formLogin label {
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+    .btn {
+      background-color: #555;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-align: center;
+      display: block;
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+    .btn:hover {
+      background-color: #444;
+    }
+    .empty-message {
+      color: #999;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <header>
+  <h1>SGCO</h1>
+  <div class="menu-btn" onclick="toggleMenu()">
+      <div class="menu-icon"></div> <!-- Ícone de menu -->
+      <div class="menu-icon"></div>
+      <div class="menu-icon"></div>
+  </div>
+  <nav>
+      <ul class="menu">
+          <li><a href="mailto:2226386@aluno.univesp.br">Suporte</a></li> 
+      </ul>
+  </nav>
+  <div class="header-links">
+      <a href="index.html">Início</a>
+      <a href="consultas.html">Agendamentos</a>
+      <a href="sobre.html">Sobre Nós</a>
+  </div>
+</header>
+  <div class="container">
+
+    <div id="searchContainer" class="search-container">
+      <input type="text" id="searchInput" class="search-box" placeholder="Pesquisar consultas...">
+      <button onclick="searchEvents()" class="search-button">Pesquisar</button>
+    </div>
+     
+    <button id="btnag" class="create-event-btn" onclick="showAgendamentoForm()">Agendar nova consulta</button>
+   
+    <div id="agendamentoForm" style="display: none;" class="formLogin">
+      <h1>Agendar Consulta</h1>
+      <form onsubmit="return agendarConsulta()">
+        <label for="nomePaciente">Nome do Paciente:</label>
+        <input type="text" id="nomePaciente" required><br><br>
+
+        <label for="dentista">Dentista:</label>
+        <input type="text" id="dentista" required><br><br>
+
+        <label for="dataHora">Data e Hora:</label>
+        <input type="datetime-local" id="dataHora" required><br><br>
+
+        <label for="tipoConsulta">Tipo de Consulta:</label>
+        <select id="tipoConsulta" required>
+          <option value="Avaliação">Avaliação</option>
+          <option value="Limpeza">Limpeza</option>
+          <option value="Canal">Canal</option>
+          <option value="Clareamento">Clareamento</option>
+          <option value="Aparelho">Aparelho</option>
+          <option value="Manutenção do Aparelho">Manutenção do Aparelho</option>
+        </select><br><br>
+
+        <input type="submit" class="btn" value="Agendar" style="text-align: center;">
+        <button type="button" class="btn" onclick="cancelAgendamentoForm()" style="text-align: center;">Cancelar</button>
+      </form>
+    </div>
+   
+    <div id="consultasAgendadas">
+      <h2>Consultas agendadas</h2>
+      <p class="event-to">Consultas agendadas no sistema</p>
+    </div>
+   
+    <div id="concluidos">
+      <h2>Consultas concluídas</h2>
+      <p class="event-to">Pacientes atendidos pelo dentista</p>
+    </div>
+   
+    <div id="cancelados">
+      <h2>Consultas canceladas</h2>
+      <p class="event-to">Pacientes com agendamentos cancelados ou com faltas</p>
+    </div>
+  </div>
+   
+  <!-- Imagens para os botões de "Concluir" e "Cancelar" -->
+  <img src="v.png" id="concluirImg" style="display: none;">
+  <img src="x.png" id="cancelarImg" style="display: none;">
+
+  <script>
+    function showAgendamentoForm() {
+      document.getElementById('agendamentoForm').style.display = 'block';
+      document.getElementById('consultasAgendadas').style.display = 'none';
+      document.getElementById('concluidos').style.display = 'none';
+      document.getElementById('cancelados').style.display = 'none';
+      document.getElementById('searchContainer').style.display = 'none';
+      document.getElementById('btnag').style.display = 'none';
+
+      }
+   
+    function cancelAgendamentoForm() {
+      document.getElementById('agendamentoForm').style.display = 'none';
+      document.getElementById('consultasAgendadas').style.display = 'block';
+      document.getElementById('concluidos').style.display = 'block';
+      document.getElementById('cancelados').style.display = 'block';
+      document.getElementById('searchContainer').style.display = 'flex';
+      document.getElementById('btnag').style.display = 'flex';
+    }
+   
+    function agendarConsulta() {
+    var nomePaciente = document.getElementById('nomePaciente').value;
+    var dentista = document.getElementById('dentista').value;
+    var tipoConsulta = document.getElementById('tipoConsulta').value;
+    var dataHora = document.getElementById('dataHora').value;
+    var novoEvento = `
+    <div class="event">
+      <span class="event-name">${nomePaciente}</span>
+      <span class="event-details">${tipoConsulta} - ${dentista}</span>
+      <span>Data e Hora: ${dataHora}</span>
+      <div class="event-actions">
+        <button class="event-action-btn" onclick="marcarComoConcluido(this)"><img src="v.png"></button>
+        <button class="event-action-btn" onclick="cancelarConsulta(this)"><img src="x.png"></button>
+      </div>
+    </div>
+  `
+  ;
+
+  document.getElementById('consultasAgendadas').insertAdjacentHTML('beforeend', novoEvento);
+  document.getElementById('consultasAgendadas').style.display = 'block';
+  document.getElementById('concluidos').style.display = 'block';
+  document.getElementById('cancelados').style.display = 'block';
+
+  document.getElementById('agendamentoForm').style.display = 'none';
+
+  document.getElementById('nomePaciente').value = '';
+  document.getElementById('dentista').value = '';
+  document.getElementById('tipoConsulta').value = '';
+  document.getElementById('dataHora').value = '';
+  document.getElementById('searchContainer').style.display = 'flex';
+  document.getElementById('btnag').style.display = 'block';
+
+  return false;
+}
+   
+    function marcarComoConcluido(button) {
+      var evento = button.closest('.event');
+      document.getElementById('concluidos').appendChild(evento);
+      removeBotoesEvento(evento);
+      // Altera a imagem do botão "Concluir" para um check
+      button.innerHTML = '<img src="v.png">';
+      // Remove o evento de onclick do botão
+      button.removeAttribute('onclick');
+    }
+   
+    function cancelarConsulta(button) {
+      var evento = button.closest('.event');
+      document.getElementById('cancelados').appendChild(evento);
+      removeBotoesEvento(evento);
+      // Altera a imagem do botão "Cancelar" para um "X"
+      button.innerHTML = '<img src="x.png">';
+      // Remove o evento de onclick do botão
+      button.removeAttribute('onclick');
+    }
+   
+    function removeBotoesEvento(evento) {
+      var botoes = evento.querySelectorAll('.event-action-btn');
+      botoes.forEach(function(botao) {
+        botao.remove();
+      });
+    }
+
+    function searchEvents() {
+            var input = document.getElementById('searchInput').value.toLowerCase();
+            var allEvents = document.querySelectorAll('.event');
+
+            allEvents.forEach(function(event) {
+                var eventName = event.querySelector('.event-name').textContent.toLowerCase();
+                if (eventName.indexOf(input) > -1) {
+                    event.style.display = '';
+                } else {
+                    event.style.display = 'none';
+                }
+            });
+        }
+
+        // Função para executar a pesquisa automaticamente ao digitar
+        function autoSearch() {
+            var input = document.getElementById('searchInput').value.toLowerCase();
+            var allEvents = document.querySelectorAll('.event');
+
+            allEvents.forEach(function(event) {
+                var eventName = event.querySelector('.event-name').textContent.toLowerCase();
+                if (eventName.includes(input)) {
+                    event.style.display = '';
+                } else {
+                    event.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('input', autoSearch);
+
+        function toggleMenu() {
+            document.querySelector('.menu').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

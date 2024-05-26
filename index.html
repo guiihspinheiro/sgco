@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGCO</title>
+   <link rel="icon" type="image/png" href="Logo.png">
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f3f3;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        header {
+            background-color: #484747;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+            position: relative;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: left;
+            display: none;
+            position: absolute;
+            background-color: #000;
+            top: 90px;
+            left: 20px;
+            width: 200px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+        nav ul.active {
+            display: block;
+        }
+        nav ul li {
+            margin-bottom: 10px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            padding: 10px;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+        }
+        nav ul li a:hover {
+            background-color: #555;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-family: "Arial Black", sans-serif;
+            font-size: 24px;
+        }
+        p1 {
+            text-align: left;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-family: "Arial Black", sans-serif;
+            font-size: 15px;
+        }
+        .menu-btn {
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 999;
+            color: #fff;
+            background-color: #333;
+            padding: 10px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .menu-btn:hover {
+            background-color: #555;
+        }
+        .menu-icon {
+            width: 20px;
+            height: 3px;
+            background-color: #fff;
+            margin: 4px 0;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .header-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .header-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+        }
+        .header-links a:hover {
+            background-color: #555;
+        }
+        .logo {
+            display: inline-block;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeInScale 1s forwards;
+        }
+        .logo:hover {
+            transform: scale(1.1);
+        }
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        /* Estilo para a caixinha */
+        .click-box {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            max-width: 300px; /* Limita a largura da caixa */
+        }
+        .click-box:hover {
+            background-color: #555;
+        }
+        .click-box img {
+            max-width: 90%;
+            max-height: 100px; /* Limita a altura da imagem */
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SGCO</h1>
+        <div class="menu-btn" onclick="toggleMenu()">
+            <div class="menu-icon"></div> <!-- Ícone de menu -->
+            <div class="menu-icon"></div>
+            <div class="menu-icon"></div>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li><a href="mailto:2226386@aluno.univesp.br">Suporte</a></li> 
+            </ul>
+        </nav>
+        <div class="header-links">
+            <a href="index.html">Início</a>
+            <a href="consultas.html">Agendamentos</a>
+            <a href="sobre.html">Sobre Nós</a>
+        </div>
+    </header>
+    <div class="container">
+        <h2>Bem-vindo ao Sistema Gerenciador de Consultas Odontológicas!</h2>
+        <p>
+            O SGCO é plataforma intuitiva e eficiente para gerenciar as consultas
+            odontológicas do seu consultório. Nosso objetivo é simplificar o processo de agendamento e
+            gestão de consultas, proporcionando uma experiência agradável e organizada para os
+            atendentes e profissionais.
+        </p>
+        <br>
+        <p1>
+            Por Que Escolher o SGCO?
+        </p1>
+        <p>
+            • Facilidade de Uso: Nossa plataforma é intuitiva e fácil de navegar,
+            permitindo que os atendentes encontrem e agendem consultas sem complicações.
+        </p>
+        <p>
+            • Eficiência: Economize tempo e esforço com nossas soluções de agendamento e
+            gerenciamento automatizadas, otimizando o fluxo de trabalho do consultório.
+        </p>
+        <p>
+            • Suporte Completo: Nossa equipe está disponível para ajudar com qualquer dúvida ou problema que possa surgir.
+            Estamos comprometidos em fornecer um serviço de alta qualidade para garantir a satisfação de sua equipe e pacientes.
+        </p>
+        <br>
+        <!-- Adicionando a caixinha clicável com imagem -->
+        <div class="click-box" onclick="window.location.href='consultas.html'">
+            <img src="calendario.png" alt="calendario"> <!-- Substitua pelo caminho da sua imagem -->
+            Ver Consultas
+        </div>
+    </div>
+    <script>
+        function toggleMenu() {
+            document.querySelector('.menu').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
